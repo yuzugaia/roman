@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  get 'searches/search'
   devise_for :users, controllers: {
     registrations: "user/registrations",
     sessions: 'user/sessions'
@@ -13,6 +14,9 @@ Rails.application.routes.draw do
   
   namespace :user do
     resources :novels, only: [:new, :create, :index, :show, :destroy]
+    
+    get 'search', to: 'search#search', as: 'search'
+    
   end
   
   
