@@ -1,0 +1,2 @@
+class NobelComment < ApplicationRecord
+end
