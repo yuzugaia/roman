@@ -1,8 +1,11 @@
-<h1>小説を書く</h1>
-<%= form_with model: @novel do |f| %>
-  <h4>ショップ名</h4>
-  <%= f.text_field :title %>
-  <h4>説明</h4>
-  <%= f.text_area :body %>
-  <%= f.submit '投稿' %>
+<h1>新規投稿</h1>
+
+<%= form_with(model: @novel, url: user_novels_path, method: :post) do |form| %>
+  <%= form.label :title, 'タイトル' %>
+  <%= form.text_field :title %>
+
+  <%= form.label :body, '本文' %>
+  <%= form.text_area :body %>
+
+  <%= form.submit '投稿' %>
 <% end %>

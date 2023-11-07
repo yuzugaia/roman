@@ -13,11 +13,14 @@ Rails.application.routes.draw do
   root to: 'user/homes#top'
   
   namespace :user do
-    resources :novels, only: [:new, :create, :index, :show, :destroy]
+    
+    resources :novels, only: [:new, :create, :index, :show, :destroy] do
+      resources :novel_comments, only: [:create, :destroy]
+    end
     
     get 'search', to: 'search#search', as: 'search'
     
-  end
+    end
   
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
