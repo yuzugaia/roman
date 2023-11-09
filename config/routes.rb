@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   
   root to: 'user/homes#top'
   
+  get '/about', to: 'homes#about', as: 'about'
+  
   namespace :user do
     
     resources :novels, only: [:new, :create, :index, :show, :destroy] do
