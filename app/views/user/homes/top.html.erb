@@ -1,1 +1,9 @@
 <h1>小説を検索</h1>
+<li>
+  <% if user_signed_in? %>
+    <%= link_to bookmarks_user_novel_path(current_user), data: { "turbolinks" => false } do %>
+      <i class="fas fa-thumbs-up"></i>
+      いいねした投稿
+    <% end %>
+  <% end %>
+</li>
