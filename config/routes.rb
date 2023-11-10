@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     
     resources :novels, only: [:new, :create, :index, :show, :destroy] do
       resources :novel_comments, only: [:create, :destroy]
+      resource :bookmarks, only: [:create, :destroy]
     end
     
     get 'search', to: 'search#search', as: 'search'
