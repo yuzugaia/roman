@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   
   root to: 'user/homes#top'
   
-  get '/about', to: 'homes#about', as: 'about'
+  get '/about', to: 'user/homes#about', as: 'about'
   
   namespace :user do
     
