@@ -25,10 +25,15 @@ class User::NovelsController < ApplicationController
   def show
     @novel = Novel.find(params[:id])
     @novel_comment = NovelComment.new
+    @novel.read_count.increment!(:views)
     @novel_detail = Novel.find(params[:id])
     unless ViewCount.find_by(user_id: current_user.id, book_id: @novel_detail.id)
       current_user.view_counts.create(novel_id: @novel_detail.id)
     end
+  end
+  
+  def ranking
+    @ranking = ReadCount.order(views: :desc).limit(10)
   end
   
   def edit

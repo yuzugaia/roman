@@ -1,9 +1,27 @@
-<h1>小説を検索</h1>
-<div>
-  <% if user_signed_in? %>
-    <%= link_to bookmarks_user_novel_path(current_user), data: { "turbolinks" => false } do %>
-      <i class="fas fa-thumbs-up"></i>
-      ブックマーク一覧
+<tr>
+  <th>
+    <% if user_signed_in? %>
+      <%= link_to bookmarks_user_novel_path(current_user), data: { "turbolinks" => false } do %>
+        <i class="fas fa-thumbs-up"></i>
+        ブックマーク
+      <% end %>
     <% end %>
-  <% end %>
-</div>
+  </th>
+  
+  <th>小説を検索</th>
+  <th>検索バー</th>
+  
+  <h2>閲覧数ランキング</h2>
+    <ol>
+      <% if @ranking.present? %>
+        <% @ranking.each do |read_count| %>
+          <li><%= read_count.novel.title %>（<%= read_count.views %> views）</li>
+        <% end %>
+      <% else %>
+            <li>ランキングはありません</li>
+      <% end %>
+    
+    </ol>
+  
+  
+</tr>

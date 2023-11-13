@@ -1,0 +1,11 @@
+<h2>閲覧数ランキング</h2>
+
+<ol>
+
+  <% @ranking.each do |read_count| %>
+
+    <li><%= read_count.novel.title %>（<%= read_count.views %> views）</li>
+
+  <% end %>
+
+</ol>
