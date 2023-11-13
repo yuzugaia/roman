@@ -7,5 +7,6 @@ class User < ApplicationRecord
   has_many :novels
   has_many :novel_comments, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
+  has_many :read_counts, dependent: :destroy
         
 end

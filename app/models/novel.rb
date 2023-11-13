@@ -3,6 +3,7 @@ class Novel < ApplicationRecord
   belongs_to :user
   has_many :novel_comments, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
+  has_many :read_counts, dependent: :destroy
   
   enum status: { published: 0, draft: 1, unpublished: 2 }
   
