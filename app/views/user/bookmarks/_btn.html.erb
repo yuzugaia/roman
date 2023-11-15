@@ -1,0 +1,11 @@
+<% if novel.bookmarked_by?(current_user) %>
+  <%= link_to bookmarks_user_novel_path(novel), method: :delete, remote: true do %>
+    <i class="fa-solid fa-book-bookmark" aria-hidden="true" style="color: red;"></i>
+    <%= novel.bookmarks.count %> ブックマーク
+  <% end %>
+<% else %>
+  <%= link_to bookmarks_user_novel_path(novel), method: :post, remote: true do %>
+    <i class="fa-solid fa-book-bookmark" aria-hidden="true"></i>
+    <%= novel.bookmarks.count %> ブックマーク
+  <% end %>
+<% end %>

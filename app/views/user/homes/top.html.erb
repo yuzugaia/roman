@@ -1,27 +1,30 @@
-<tr>
-  <th>
-    <% if user_signed_in? %>
-      <%= link_to bookmarks_user_novel_path(current_user), data: { "turbolinks" => false } do %>
-        <i class="fas fa-thumbs-up"></i>
-        ブックマーク
-      <% end %>
-    <% end %>
-  </th>
-  
-  <th>小説を検索</th>
-  <th>検索バー</th>
-  
-  <h2>閲覧数ランキング</h2>
-    <ol>
-      <% if @ranking.present? %>
-        <% @ranking.each do |read_count| %>
-          <li><%= read_count.novel.title %>（<%= read_count.views %> views）</li>
+<div class="container mt-5 mb-5">
+  <tr>
+    <th>
+      <% if user_signed_in? %>
+        <%= link_to bookmarks_user_novel_path(current_user), data: { "turbolinks" => false } do %>
+          <i class="fa-solid fa-book-bookmark"></i>
+          ブックマーク
         <% end %>
-      <% else %>
-            <li>ランキングはありません</li>
       <% end %>
+    </th>
     
-    </ol>
-  
-  
-</tr>
+    <th>小説を検索</th>
+    <th>検索バー</th>
+    
+    <div class="row">
+      <div class="col">
+        <h2>閲覧数ランキング</h2>
+          <ol>
+            <% if @ranking.present? %>
+              <% @ranking.each do |read_count| %>
+                <li><%= read_count.novel.title %>（<%= read_count.views %> views）</li>
+              <% end %>
+            <% else %>
+                  <li>ランキングはありません</li>
+            <% end %>
+          </ol>
+      </div>
+    </div>
+  </tr>
+</div>

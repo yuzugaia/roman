@@ -7,9 +7,12 @@ class Novel < ApplicationRecord
   
   enum status: { published: 0, draft: 1, unpublished: 2 }
   
+  validates :title,presence:true
+  validates :body,presence:true
   
-  def favorited_by?(user)
-    favorites.exists?(user_id: user.id)
+  def bookmarked_by?(user)
+    return false if user.nil?
+    bookmarks.exists?(user_id: user.id)
   end
   
   def self.bookmarks(user, page, per_page)

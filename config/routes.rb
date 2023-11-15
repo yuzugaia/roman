@@ -15,23 +15,18 @@ Rails.application.routes.draw do
   get '/about', to: 'user/homes#about', as: 'about'
   
   namespace :user do
-    
-    resources :novels, only: [:new, :create, :index, :show, :destroy] do
+    resources :novels, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
       resources :novel_comments, only: [:create, :destroy]
       resource :bookmarks, only: [:create, :destroy]
-      
+  
       member do
         get :bookmarks
       end
-      
     end
-    
 
-      
     get 'search', to: 'search#search', as: 'search'
-    
   end
-  
+    
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

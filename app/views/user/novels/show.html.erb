@@ -1,21 +1,21 @@
 <div>
-  <p>コメント件数：<%= @novel_image.novel_comments.count %></p>
-  <% @novel_image.novel_comments.each do |novel_comment| %>
+  <p>コメント件数：<%= @novel.novel_comments.count %></p>
+  <% @novel.novel_comments.each do |novel_comment| %>
     <p><%= image_tag novel_comment.user.get_profile_image(100,100) %></p>
     <%= novel_comment.user.name %>
     <%= novel_comment.created_at.strftime('%Y/%m/%d') %><%= novel_comment.comment %>
+    
+    <% if novel_comment.user == current_user %>
+      <%= link_to "削除", [@novel, novel_comment], method: :delete %>
+    <% end %>
   <% end %>
 </div>
 
-<td>閲覧数: <%= novel.view_counts.count %></td>
+<td>閲覧数: <%= @novel.read_counts.count %></td>
 
 <div>
-  <%= form_with model: [@novel, @novel_comment] do |f| %>
+  <%= form_with model: @comment do |f| %>
     <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
     <%= f.submit "送信する" %>
   <% end %>
 </div>
-
-<% if post_comment.user == current_user %>
-  <%= link_to "削除", novel_novel_comment_path(novel_comment.novel, novel_comment), method: :delete %>
-<% end %>

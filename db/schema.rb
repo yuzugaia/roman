@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_13_033442) do
+ActiveRecord::Schema.define(version: 2023_11_15_030141) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,6 +27,10 @@ ActiveRecord::Schema.define(version: 2023_11_13_033442) do
   create_table "bookmarks", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "novel_id", null: false
+    t.integer "user_id", null: false
+    t.index ["novel_id"], name: "index_bookmarks_on_novel_id"
+    t.index ["user_id"], name: "index_bookmarks_on_user_id"
   end
 
   create_table "genres", force: :cascade do |t|
@@ -61,6 +65,7 @@ ActiveRecord::Schema.define(version: 2023_11_13_033442) do
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "read_count"
   end
 
   create_table "read_counts", force: :cascade do |t|
@@ -82,4 +87,6 @@ ActiveRecord::Schema.define(version: 2023_11_13_033442) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bookmarks", "novels"
+  add_foreign_key "bookmarks", "users"
 end

@@ -1,0 +1,26 @@
+<table class='table table-hover table-inverse'>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Title</th>
+      <th>Opinion</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% novels.each do |novel| %>
+      <tr>
+        <td>
+          <%= link_to user_novel_path(novel.user.id) do %>
+          <% end %>
+        </td>
+        <td><%= link_to novel.title, user_novel_path(novel.user.id, novel) %></td>
+        <td><%= novel.body %></td>
+        <td id="favorite_btn_<%= novel.id %>">
+          <%= render "user/bookmarks/btn", novel: novel %>
+        </td>
+        <td>コメント数: <%= novel.novel_comments.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -8,10 +8,10 @@ class User::NovelsController < ApplicationController
     @novel = Novel.new(novel_params)
     @novel.user_id = current_user.id
     if @novel.save
-      if @post.draft?
+      if @novel.draft?
         redirect_to novels_path, notice: '下書きが保存されました。'
       else
-        redirect_to novel_path(@novel), notice: '投稿が公開されました。'
+        redirect_to user_novel_path(@novel), notice: '投稿が公開されました。'
       end
     else
       render :new
@@ -19,16 +19,19 @@ class User::NovelsController < ApplicationController
   end
 
   def index
-    @novel = Novel.page(params[:page]).per(10)
+    @novels = Novel.page(params[:page]).per(10)
   end
 
   def show
     @novel = Novel.find(params[:id])
     @novel_comment = NovelComment.new
-    @novel.read_count.increment!(:views)
+    @novel.increment!(:read_count)
+    @novel.read_count ||= 0
+    @novel.read_count += 1
+    @novel.save
     @novel_detail = Novel.find(params[:id])
-    unless ViewCount.find_by(user_id: current_user.id, book_id: @novel_detail.id)
-      current_user.view_counts.create(novel_id: @novel_detail.id)
+    unless ReadCount.find_by(user_id: current_user.id, novel_id: @novel_detail.id)
+      current_user.read_counts.create(novel_id: @novel_detail.id)
     end
   end
   
