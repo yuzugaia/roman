@@ -1,21 +1,40 @@
-<div>
-  <p>コメント件数：<%= @novel.novel_comments.count %></p>
-  <% @novel.novel_comments.each do |novel_comment| %>
-    <p><%= image_tag novel_comment.user.get_profile_image(100,100) %></p>
-    <%= novel_comment.user.name %>
-    <%= novel_comment.created_at.strftime('%Y/%m/%d') %><%= novel_comment.comment %>
-    
-    <% if novel_comment.user == current_user %>
-      <%= link_to "削除", [@novel, novel_comment], method: :delete %>
-    <% end %>
-  <% end %>
-</div>
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-3'>
+      <h2 class="mt-3">New book</h2>
+      <%= render 'form', book: Book.new %>
+    </div>
+    <div class='col-md-8 offset-md-1'>
+      <h2>Book detail</h2>
+      <table class='table'>
+        <tr>
+          <td><%= link_to(@novel.user) do %>
+            <%= image_tag @novel.user.get_profile_image, size:"100x100" %><br>
+            <%= @novel.user.name %>
+            <% end %>
+          </td>
+          <td><%= link_to @book.title, @book %></td>
+          <td><%= @book.body %></td>
+          <td id="favorite_btn_<%= @novel.id %>">
+            <%= render "favorites/btn", novel: @novel %>
+          </td>
+          <td id="comment_counter">
+             <%= render "novel_comments/counter", novel: @novel %>
+           </td>
+          <% if @novel.user == current_user %>
+            <td><%= link_to 'Edit', edit_novel_path(@novel), class: "btn btn-sm btn-success edit_book_#{@novel.id}" %></td>
+            <td><%= link_to 'Destroy', @novel, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%></td>
+          <% end %>
+        </tr>
+      </table>
 
-<td>閲覧数: <%= @novel.read_counts.count %></td>
+       <div id="comment_index">
+         <%= render "nvoel_comments/index", novel: @novel %>
+       </div>
 
-<div>
-  <%= form_with model: @comment do |f| %>
-    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-    <%= f.submit "送信する" %>
-  <% end %>
+
+      <%= render "novel_comments/form", novel: @novel, nvoel_comment: @novel_comment %>
+
+    </div>
+  </div>
 </div>

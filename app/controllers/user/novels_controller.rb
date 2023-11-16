@@ -23,15 +23,19 @@ class User::NovelsController < ApplicationController
   end
 
   def show
-    @novel = Novel.find(params[:id])
-    @novel_comment = NovelComment.new
-    @novel.increment!(:read_count)
-    @novel.read_count ||= 0
-    @novel.read_count += 1
-    @novel.save
-    @novel_detail = Novel.find(params[:id])
-    unless ReadCount.find_by(user_id: current_user.id, novel_id: @novel_detail.id)
-      current_user.read_counts.create(novel_id: @novel_detail.id)
+    begin
+      @novel = Novel.find(params[:id])
+      @novel_comment = NovelComment.new
+      @novel.increment!(:read_count)
+      @novel.read_count ||= 0
+      @novel.read_count += 1
+      @novel.save
+      unless ReadCount.find_by(user_id: current_user.id, novel_id: @novel.id)
+        current_user.read_counts.create(novel_id: @novel.id)
+      end
+    rescue ActiveRecord::RecordNotFound
+      flash[:alert] = '指定された小説は存在しません。'
+      redirect_to request.referer || root_path
     end
   end
   

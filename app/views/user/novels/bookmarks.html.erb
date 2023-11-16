@@ -1,11 +1,11 @@
 <table class="table">
-        <tbody>
-          <% @bookmarks.each do |post| %>
-          <tr>
-            <td>
-              <%= link_to post.title, user_novel_path(@novel) %>
-            </td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
+  <tbody>
+    <% @bookmarks.each do |bookmark| %>
+      <tr>
+        <td>
+          <%= link_to bookmark.title, user_novel_path(bookmark) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
