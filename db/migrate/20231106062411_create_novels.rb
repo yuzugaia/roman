@@ -5,7 +5,6 @@ class CreateNovels < ActiveRecord::Migration[6.1]
       t.text :body, null: false
       t.integer :user_id, null: false
       t.integer :status, default: 0, null: false
-      
       t.timestamps
     end
   end

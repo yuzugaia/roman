@@ -1,5 +1,7 @@
 class User::SearchesController < ApplicationController
   
+  before_action :authenticate_user!
+
   def search
     @model = params[:model]
     @content = params[:content]
@@ -10,5 +12,6 @@ class User::SearchesController < ApplicationController
       @records = Novel.search_for(@content, @method)
     end
   end
+
   
 end

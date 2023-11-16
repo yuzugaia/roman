@@ -1,6 +1,15 @@
 class User::NovelsController < ApplicationController
   
-  def new
+  before_action :authenticate_user!
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+
+  def show
+    @novel = Novel.find(params[:id])
+    @novel_comment = NovelComment.new
+  end
+
+  def index
+    @novels = Novel.all
     @novel = Novel.new
   end
 
@@ -8,87 +17,40 @@ class User::NovelsController < ApplicationController
     @novel = Novel.new(novel_params)
     @novel.user_id = current_user.id
     if @novel.save
-      if @novel.draft?
-        redirect_to novels_path, notice: '下書きが保存されました。'
-      else
-        redirect_to user_novel_path(@novel), notice: '投稿が公開されました。'
-      end
+      redirect_to novel_path(@novel), notice: "You have created novel successfully."
     else
-      render :new
+      @novels = Novel.all
+      render 'index'
     end
   end
 
-  def index
-    @novels = Novel.page(params[:page]).per(10)
-  end
-
-  def show
-    begin
-      @novel = Novel.find(params[:id])
-      @novel_comment = NovelComment.new
-      @novel.increment!(:read_count)
-      @novel.read_count ||= 0
-      @novel.read_count += 1
-      @novel.save
-      unless ReadCount.find_by(user_id: current_user.id, novel_id: @novel.id)
-        current_user.read_counts.create(novel_id: @novel.id)
-      end
-    rescue ActiveRecord::RecordNotFound
-      flash[:alert] = '指定された小説は存在しません。'
-      redirect_to request.referer || root_path
-    end
-  end
-  
-  def ranking
-    @ranking = ReadCount.order(views: :desc).limit(10)
-  end
-  
   def edit
-    @novel = Novel.find(params[:id])
-    @user = current_user
   end
-  
-  def update
-    @user = current_user
-    @novel = Novel.find(params[:id])
 
-    @novel.assign_attributes(novel_params)
-   
-    if params[:draft].present?
-      @novel.status = :draft
-      notice_message = "下書きを保存しました。"
-      redirect_path = novels_path
-    elsif params[:unpublished].present?
-      @novel.status = :unpublished
-      notice_message = "非公開にしました。"
-      redirect_path = novels_path
+  def update
+    if @novel.update(novel_params)
+      redirect_to novel_path(@novel), notice: "You have updated novel successfully."
     else
-      @novel.status = :published
-      notice_message = "投稿を更新しました。"
-      redirect_path = novels_path(@novel)
-    end
-    
-    if @novel.save
-      redirect_to redirect_path, notice: notice_message
-    else
-      render :edit
+      render "edit"
     end
   end
-  
+
   def destroy
-    novel = Novel.find(params[:id])
-    novel.destroy
-    redirect_to '/top'
-  end
-  
-  def bookmarks
-    @bookmarks = Novel.bookmarks(current_user, params[:page], 10)
+    @novel.destroy
+    redirect_to novels_path
   end
 
   private
 
   def novel_params
-    params.require(:novel).permit(:title, :body, :status)
+    params.require(:novel).permit(:title,:body)
+  end
+
+  def ensure_correct_user
+    @novel = novel.find(params[:id])
+    unless @novel.user == current_user
+      redirect_to novels_path
+    end
   end
   
 end
