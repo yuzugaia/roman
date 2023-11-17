@@ -4,8 +4,11 @@ class User::NovelsController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def show
-    @novel = Novel.find(params[:id])
+    @novel = current_user.novels.find(params[:id])
     @novel_comment = NovelComment.new
+    unless ReadCount.where(created_at: Time.zone.now.all_day).find_by(user_id: current_user.id, novel_id: @novel.id)
+      current_user.read_counts.create(novel_id: @novel.id)
+    end
   end
 
   def index
@@ -25,6 +28,7 @@ class User::NovelsController < ApplicationController
   end
 
   def edit
+    @novel = Novel.find(params[:id])
   end
 
   def update
@@ -43,11 +47,11 @@ class User::NovelsController < ApplicationController
   private
 
   def novel_params
-    params.require(:novel).permit(:title,:body)
+    params.permit(:title, :body)
   end
 
   def ensure_correct_user
-    @novel = novel.find(params[:id])
+    @novel = Novel.find(params[:id])
     unless @novel.user == current_user
       redirect_to novels_path
     end

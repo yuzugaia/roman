@@ -1,39 +1,41 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise:database_authenticatable, :registerable,
-        :recoverable, :rememberable, :validatable
-         
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
   has_many :novels
   has_many :novel_comments, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
   has_many :read_counts, dependent: :destroy
-  
+
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :followers, through: :reverse_of_relationships, source: :follower
 
   has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :followings, through: :relationships, source: :followed
-  
+
   has_one_attached :profile_image
-  
-  validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
+
   validates :introduction, length: { maximum: 50 }
-  
-  
+
   GUEST_USER_EMAIL = "guest@example.com"
 
   def self.guest
     find_or_create_by!(email: GUEST_USER_EMAIL) do |user|
       user.password = SecureRandom.urlsafe_base64
-      user.name = "guestuser"
+      user.name = "ゲスト"
     end
   end
-  
-  def get_profile_image
-    (profile_image.attached?) ? profile_image : 'no_image.jpg'
+
+  def guest_user?
+    email == GUEST_USER_EMAIL
   end
-  
+
+  def get_profile_image
+    profile_image.attached? ? profile_image : 'no_image.jpg'
+  end
+
   def follow(user)
     relationships.create(followed_id: user.id)
   end
@@ -45,7 +47,7 @@ class User < ApplicationRecord
   def following?(user)
     followings.include?(user)
   end
-  
+
   def self.search_for(content, method)
     if method == 'perfect'
       User.where(name: content)
@@ -57,5 +59,4 @@ class User < ApplicationRecord
       User.where('name LIKE ?', '%' + content + '%')
     end
   end
-  
 end

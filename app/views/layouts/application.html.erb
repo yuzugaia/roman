@@ -24,17 +24,17 @@
           <div class="ml-auto">
             <div>
               <% if request.fullpath.include?("/admin") && admin_signed_in? %>
-                <%= link_to "小説一覧", user_novel_path, class: "btn btn-danger font-weight-bold mx-3" %>
+                <%= link_to "小説一覧", novels_path, class: "btn btn-danger font-weight-bold mx-3" %>
                 <%= link_to "ユーザー一覧", user_path, class: "btn btn-danger font-weight-bold mx-3" %>
                 <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-danger font-weight-bold mx-3" %>
               <% elsif user_signed_in? %>
+                <%= link_to "ホーム", user_path(current_user), class: "btn btn-danger font-weight-bold mx-3" %>
                 <%= link_to "使い方", about_path, class: "btn btn-danger font-weight-bold mx-3" %>
-                <%= link_to "小説一覧", user_novel_path, class: "btn btn-danger font-weight-bold mx-3" %>
-                <%= link_to "投稿フォーム", new_user_novel_path, class: "btn btn-danger font-weight-bold mx-3" %>
+                <%= link_to "小説一覧", novels_path, class: "btn btn-danger font-weight-bold mx-3" %>
+                <%= link_to "投稿フォーム", new_novel_path, class: "btn btn-danger font-weight-bold mx-3" %>
                 <%= link_to "ログアウト", destroy_user_session_path, method: :delete,class: "btn btn-danger font-weight-bold mx-3" %>
               <% else %>
                 <%= link_to "使い方", about_path,class: "btn btn-danger font-weight-bold mx-3" %>
-                <%= link_to "小説一覧", user_novel_path, class: "btn btn-danger font-weight-bold mx-3" %>
                 <%= link_to "ログイン", new_user_session_path, class: "btn btn-danger font-weight-bold mx-3" %>
                 <%= link_to "新規登録", new_user_registration_path, class: "btn btn-danger font-weight-bold mx-3" %>
               <% end %>

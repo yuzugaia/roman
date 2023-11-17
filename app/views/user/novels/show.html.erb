@@ -2,7 +2,7 @@
   <div class='row'>
     <div class='col-md-3'>
       <h2 class="mt-3">New book</h2>
-      <%= render 'form', book: Book.new %>
+      <%= render 'form', novel: Novel.new %>
     </div>
     <div class='col-md-8 offset-md-1'>
       <h2>Book detail</h2>
@@ -13,27 +13,26 @@
             <%= @novel.user.name %>
             <% end %>
           </td>
-          <td><%= link_to @book.title, @book %></td>
-          <td><%= @book.body %></td>
+          <td><%= link_to @novel.title, @novel %></td>
+          <td><%= @novel.body %></td>
           <td id="favorite_btn_<%= @novel.id %>">
-            <%= render "favorites/btn", novel: @novel %>
+            <%= render "user/bookmarks/btn", novel: @novel %>
           </td>
           <td id="comment_counter">
-             <%= render "novel_comments/counter", novel: @novel %>
+             <%= render "user/novel_comments/counter", novel: @novel %>
            </td>
           <% if @novel.user == current_user %>
             <td><%= link_to 'Edit', edit_novel_path(@novel), class: "btn btn-sm btn-success edit_book_#{@novel.id}" %></td>
-            <td><%= link_to 'Destroy', @novel, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%></td>
+            <td><%= link_to 'Destroy', @novel, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@novel.id}"%></td>
           <% end %>
         </tr>
       </table>
 
        <div id="comment_index">
-         <%= render "nvoel_comments/index", novel: @novel %>
+         <%= render "user/novel_comments/index", novel: @novel %>
        </div>
 
-
-      <%= render "novel_comments/form", novel: @novel, nvoel_comment: @novel_comment %>
+      <%= render "user/novel_comments/form", novel: @novel, nvoel_comment: @novel_comment %>
 
     </div>
   </div>

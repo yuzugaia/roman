@@ -11,15 +11,14 @@
     <% novels.each do |novel| %>
       <tr>
         <td>
-          <%= link_to user_novel_path(novel.user.id) do %>
-          <% end %>
+          <%= link_to novel.title, edit_novel_path(novel.user, novel) %>
         </td>
-        <td><%= link_to novel.title, user_novel_path(novel.user.id, novel) %></td>
         <td><%= novel.body %></td>
         <td id="favorite_btn_<%= novel.id %>">
           <%= render "user/bookmarks/btn", novel: novel %>
         </td>
         <td>コメント数: <%= novel.novel_comments.count %></td>
+        <td>閲覧数: <%= novel.read_counts.count %></td>
       </tr>
     <% end %>
   </tbody>
