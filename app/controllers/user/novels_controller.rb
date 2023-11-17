@@ -40,7 +40,8 @@ class User::NovelsController < ApplicationController
   end
 
   def destroy
-    @novel.destroy
+    @novel_comment = NovelComment.find(params[:id])
+    @novel_comment.destroy
     redirect_to novels_path
   end
 

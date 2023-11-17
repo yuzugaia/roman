@@ -1,3 +1,3 @@
-$('#comment_counter').html("<%= j(render 'novel_comments/counter', novel: @comment.novel) %>");
-$('#comment_index').html("<%= j(render 'novel_comments/index', novel: @comment.novel) %>");
+$('#comment_counter').html("<%= j(render 'user/novel_comments/counter', novel: @comment.novel) %>");
+$('#comment_index').html("<%= j(render 'user/novel_comments/index', novel: @comment.novel) %>");
 $('#comment_textarea').val("");

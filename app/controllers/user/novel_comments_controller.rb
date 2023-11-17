@@ -13,6 +13,7 @@ class User::NovelCommentsController < ApplicationController
   end
 
   private
+  
   def novel_comment_params
     params.require(:novel_comment).permit(:comment)
   end

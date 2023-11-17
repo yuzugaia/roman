@@ -11,7 +11,6 @@ class Novel < ApplicationRecord
   validates :body,presence:true
   
   def bookmarked_by?(user)
-    return false if user.nil?
     bookmarks.exists?(user_id: user.id)
   end
   
