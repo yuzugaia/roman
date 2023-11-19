@@ -2,18 +2,19 @@
   <thead>
     <tr>
       <th></th>
-      <th>Title</th>
-      <th>Opinion</th>
+      <th>タイトル</th>
+      <th></th>
       <th colspan="3"></th>
     </tr>
   </thead>
   <tbody>
     <% novels.each do |novel| %>
       <tr>
-        <td>
-          <%= link_to novel.title, edit_novel_path(novel.user, novel) %>
+        <td><%= link_to(novel.user) do %>
+          <%= image_tag novel.user.get_profile_image, size:'50x50' %>
+          <% end %>
         </td>
-        <td><%= novel.body %></td>
+        <td><%= link_to novel.title,novel, class: "novel_#{novel.id}" %></td>
         <td id="favorite_btn_<%= novel.id %>">
           <%= render "user/bookmarks/btn", novel: novel %>
         </td>

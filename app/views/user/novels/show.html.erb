@@ -1,11 +1,13 @@
 <div class='container'>
   <div class='row'>
     <div class='col-md-3'>
-      <h2 class="mt-3">New book</h2>
+      <h2>User info</h2>
+      <%= render 'user/users/info', user: @novel.user %>
+      <h2 class="mt-3">New novel</h2>
       <%= render 'form', novel: Novel.new %>
     </div>
     <div class='col-md-8 offset-md-1'>
-      <h2>Book detail</h2>
+      <h2>novel detail</h2>
       <table class='table'>
         <tr>
           <td><%= link_to(@novel.user) do %>
@@ -22,8 +24,8 @@
              <%= render "user/novel_comments/counter", novel: @novel %>
            </td>
           <% if @novel.user == current_user %>
-            <td><%= link_to 'Edit', edit_novel_path(@novel), class: "btn btn-sm btn-success edit_book_#{@novel.id}" %></td>
-            <td><%= link_to 'Destroy', @novel, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@novel.id}"%></td>
+            <td><%= link_to 'Edit', edit_novel_path(@novel), class: "btn btn-sm btn-success edit_novel_#{@novel.id}" %></td>
+            <td><%= link_to 'Destroy', @novel, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_novel_#{@novel.id}"%></td>
           <% end %>
         </tr>
       </table>
@@ -32,7 +34,8 @@
          <%= render "user/novel_comments/index", novel: @novel %>
        </div>
 
-      <%= render "user/novel_comments/form", novel: @novel, nvoel_comment: @novel_comment %>
+
+      <%= render "user/novel_comments/form", novel: @novel, novel_comment: @novel_comment %>
 
     </div>
   </div>

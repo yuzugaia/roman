@@ -4,11 +4,11 @@ class User::NovelsController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def show
-    @novel = current_user.novels.find(params[:id])
-    @novel_comment = NovelComment.new
+    @novel = Novel.find(params[:id])
     unless ReadCount.where(created_at: Time.zone.now.all_day).find_by(user_id: current_user.id, novel_id: @novel.id)
       current_user.read_counts.create(novel_id: @novel.id)
     end
+    @novel_comment = NovelComment.new
   end
 
   def index
@@ -19,8 +19,19 @@ class User::NovelsController < ApplicationController
   def create
     @novel = Novel.new(novel_params)
     @novel.user_id = current_user.id
+    
+    if params[:draft].present?
+      @post.status = :draft
+    else
+      @post.status = :published
+    end
+    
     if @novel.save
-      redirect_to novel_path(@novel), notice: "You have created novel successfully."
+      if @novel.draft?
+        redirect_to novel_path(@novel), notice: '下書きが保存されました。'
+      else
+        redirect_to novel_path(@novel), notice: "投稿しました。"
+      end
     else
       @novels = Novel.all
       render 'index'
@@ -28,7 +39,6 @@ class User::NovelsController < ApplicationController
   end
 
   def edit
-    @novel = Novel.find(params[:id])
   end
 
   def update
@@ -40,15 +50,14 @@ class User::NovelsController < ApplicationController
   end
 
   def destroy
-    @novel_comment = NovelComment.find(params[:id])
-    @novel_comment.destroy
+    @novel.destroy
     redirect_to novels_path
   end
 
   private
 
   def novel_params
-    params.permit(:title, :body)
+    params.require(:novel).permit(:title,:body)
   end
 
   def ensure_correct_user

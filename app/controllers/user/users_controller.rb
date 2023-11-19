@@ -8,6 +8,10 @@ class User::UsersController < ApplicationController
     @user = User.find(params[:id])
     @novels = @user.novels
     @novel = Novel.new
+    @today_novel =  @novels.created_today
+    @yesterday_novel = @novels.created_yesterday
+    @this_week_novel = @novels.created_this_week
+    @last_week_novel = @novels.created_last_week
   end
 
   def index
@@ -29,27 +33,19 @@ class User::UsersController < ApplicationController
   def search
     @user = User.find(params[:user_id])
     @novels = @user.novels
-    @novel = novel.new
-  end
-  
-  def bookmarks 
-    @user = User.find(params[:id])
-    bookmarks = Bookmark.where(user_id: @user.id).pluck(:novel_id)
-    @bookmark_novels = Novel.find(bookmarks)
-    @novel = Novel.find(params[:id])
+    @novel = Novel.new
+    if params[:created_at] == ""
+      @search_novel = "日付を選択してください"
+    else
+      create_at = params[:created_at]
+      @search_novel = @novels.where(['created_at LIKE ? ', "#{create_at}%"]).count
+    end
   end
 
   private
 
   def user_params
     params.require(:user).permit(:name, :introduction, :profile_image)
-  end
-  
-  def ensure_guest_user
-    @user = User.find(params[:id])
-    if @user.guest_user?
-      redirect_to user_path(current_user) , notice: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
-    end
   end
 
   def ensure_correct_user
