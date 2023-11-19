@@ -19,19 +19,8 @@ class User::NovelsController < ApplicationController
   def create
     @novel = Novel.new(novel_params)
     @novel.user_id = current_user.id
-    
-    if params[:draft].present?
-      @post.status = :draft
-    else
-      @post.status = :published
-    end
-    
     if @novel.save
-      if @novel.draft?
-        redirect_to novel_path(@novel), notice: '下書きが保存されました。'
-      else
-        redirect_to novel_path(@novel), notice: "投稿しました。"
-      end
+      redirect_to novel_path(@novel), notice: "You have created novel successfully."
     else
       @novels = Novel.all
       render 'index'

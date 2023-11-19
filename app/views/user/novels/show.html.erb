@@ -23,6 +23,7 @@
           <td id="comment_counter">
              <%= render "user/novel_comments/counter", novel: @novel %>
            </td>
+           
           <% if @novel.user == current_user %>
             <td><%= link_to 'Edit', edit_novel_path(@novel), class: "btn btn-sm btn-success edit_novel_#{@novel.id}" %></td>
             <td><%= link_to 'Destroy', @novel, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_novel_#{@novel.id}"%></td>
