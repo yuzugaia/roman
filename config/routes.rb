@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     
     get 'search', to: 'search#search', as: 'search'
     
-    resources :novels, only: [:index,:show,:edit,:create,:destroy,:update] do
+    resources :novels, only: [:index,:show,:edit,:create,:destroy,:update, :new] do
       resources :novel_comments, only: [:create, :destroy]
       resource :bookmarks, only: [:create, :destroy]
     end

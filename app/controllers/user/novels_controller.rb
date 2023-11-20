@@ -2,6 +2,11 @@ class User::NovelsController < ApplicationController
   
   before_action :authenticate_user!
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+  
+  def new
+    @novel = Novel.new
+    
+  end
 
   def show
     @novel = Novel.find(params[:id])

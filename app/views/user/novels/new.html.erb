@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 px-sm-0 offset-sm-1">
+      <div class="mb-4"></div>
+      <h4>新規投稿</h4>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-sm-10 px-sm-0 mx-auto mb-5">
+      <%= form_with model: @novel, url: novels_path, local: true do |f| %>
+      <table>
+        
+        <tr>
+          <div class="form-group">
+            <%= f.label :タイトル %>
+            <%= f.text_field :title, class: 'form-control book_title' %>
+          </div>
+        </tr>
+        
+        <tr>
+          <div class="form-group">
+            <%= f.label :本文 %>
+            <%= f.text_area :body, class: 'form-control book_body', rows: 20 %>
+          </div>
+        </tr>
+        
+        <tr>
+          <div class="form-group">
+            <strong><%= f.label :ジャンル %></strong><br/>
+            <%= f.collection_select :genre_id, Genre.all, :id, :name, :prompt => "--選択してください--" %>
+          </div>
+        </tr>
+        
+        <tr>
+        <div class="form-action">
+          <th>　　　</th>
+          <td><%= f.submit "投稿", class: "btn btn-success" %></td>
+        </div>
+        </tr>
+        
+      <% end %>
+      </table>
+    </div>
+  </div>
+  
+</div>

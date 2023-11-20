@@ -21,11 +21,13 @@
 </table>
 　
 <div class='row'>
-  <% if current_user != user %>
-    <td><%= render "user/relationships/follow_btn", user: user %></td>
-  <% else %>
-    <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block edit_user_#{user.id}" do %>
-      <i class="fas fa-user-cog"></i> プロフィール編集
+  <% if user.email != "guest@example.com" %>
+    <% if current_user != user %>
+      <td><%= render "user/relationships/follow_btn", user: user %></td>
+    <% else %>
+      <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block edit_user_#{user.id}" do %>
+        <i class="fas fa-user-cog"></i> プロフィール編集
+      <% end %>
     <% end %>
   <% end %>
 </div>

@@ -1,11 +1,13 @@
 <% if novel.bookmarked_by?(current_user) %>
+  <!--ブックマークの解除-->
   <%= link_to novel_bookmarks_path(novel), method: :delete, remote: true do %>
-    <i class="fas fa-heart" aria-hidden="true" style="color: red;"></i>
+    <i class="fa-solid fa-bookmark" aria-hidden="true" style="color: #052457;"></i>
     <%= novel.bookmarks.count %> ブックマーク
   <% end %>
 <% else %>
+  <!--ブックマークの登録-->
   <%= link_to novel_bookmarks_path(novel), method: :post, remote: true do %>
-    <i class="fas fa-heart" aria-hidden="true"></i>
+    <i class="fa-regular fa-bookmark" aria-hidden="true" style="color: #052457;"></i>
     <%= novel.bookmarks.count %> ブックマーク
   <% end %>
 <% end %>
