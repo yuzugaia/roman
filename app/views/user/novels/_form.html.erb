@@ -1,5 +1,7 @@
 <%= form_with model:novel,local:true do |f| %>
-  <div class="form-group">
-    <p><%=link_to"ブックマーク一覧",bookmarks_user_path(@user),class: "btn btn-outline-secondary btn-block" %></p>
+  <div class='row'>
+    <%= link_to bookmarks_user_path(@user), class: "btn btn-outline-secondary btn-block" do %>
+      ブックマーク一覧  <i class="fa-solid fa-book-bookmark"></i>
+    <% end %>
   </div>
 <% end %>

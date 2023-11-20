@@ -5,3 +5,26 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+#管理者
+Admin.create!(
+  email: 'kanri@sya',
+  password: '123kanri',
+)
+
+##ジャンル
+genres = [
+  'ファンタジー',
+  '恋愛',
+  'ミステリー',
+  'SF',
+  'エッセイ',
+  'ノンフィクション',
+  'その他',
+]
+
+genres.each do |genre|
+  Genre.create!(
+    name: genre
+  )
+end

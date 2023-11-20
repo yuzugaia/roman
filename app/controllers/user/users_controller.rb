@@ -34,7 +34,6 @@ class User::UsersController < ApplicationController
     @user = User.find(params[:id])
     bookmarks = Bookmark.where(user_id: @user.id).pluck(:novel_id)
     @bookmark_novels = Novel.find(bookmarks)
-    @novel = Novel.find(params[:id])
   end
   
   def search

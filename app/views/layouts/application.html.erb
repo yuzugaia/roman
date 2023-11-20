@@ -18,7 +18,20 @@
             <span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="id="navbarNavDropdown"">
             <ul class="navbar-nav ml-auto">
-              <% if user_signed_in? %>
+              <% if request.fullpath.include?("/admin") && admin_signed_in? %>
+              <li>
+                  <a class="nav-link text-light" href="/users">
+                   <i class="fas fa-users"></i> 作者一覧</a>
+                </li>
+                <li>
+                  <a class="nav-link text-light" href="/novels">
+                    <i class="fa-solid fa-book"></i> 小説一覧</a>
+                </li>
+                <li>
+                  <a class="nav-link text-light" rel="nofollow" data-method="delete" href="/admin/sign_out">
+                    <i class="fas fa-sign-out-alt"></i> ログアウト</a>
+                </li>
+              <% elsif user_signed_in? %>
                 <li>
                   <%= link_to user_path(current_user.id),class: 'nav-link text-light' do %>
                     <i class="fas fa-home"></i> ホーム

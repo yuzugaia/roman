@@ -5,7 +5,7 @@ class User::NovelsController < ApplicationController
   
   def new
     @novel = Novel.new
-    
+    @genres = Genre.all
   end
 
   def show
@@ -51,7 +51,7 @@ class User::NovelsController < ApplicationController
   private
 
   def novel_params
-    params.require(:novel).permit(:title,:body)
+    params.require(:novel).permit(:title,:body, :genre_id)
   end
 
   def ensure_correct_user
