@@ -1,1 +1,22 @@
-<h1>21212</h1>
+<table class='table table-hover table-inverse'>
+  <thead>
+    <h1>ユーザー投稿物一覧</h1>
+    <tr>
+      <th></th>
+      <th>タイトル</th>
+      <th></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @novels.each do |novel| %>
+      <tr>
+        <td>
+        </td>
+        <td><%= novel.title %></td>
+        <td><%= novel.body %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
