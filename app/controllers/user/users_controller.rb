@@ -47,6 +47,14 @@ class User::UsersController < ApplicationController
       @search_novel = @novels.where(['created_at LIKE ? ', "#{create_at}%"]).count
     end
   end
+  
+  #ユーザーの物理削除
+  def destroy
+      @user = User.find(params[:id]) 
+      @user.destroy
+      flash[:notice] = 'ユーザーを削除しました。'
+      redirect_to :root
+  end
 
   private
 
@@ -59,6 +67,10 @@ class User::UsersController < ApplicationController
     unless @user == current_user
       redirect_to user_path(current_user)
     end
+  end
+  
+  def set_user
+     @user = User.find_by(:id => params[:id])
   end
   
 end

@@ -60,4 +60,19 @@ class User < ApplicationRecord
       User.where('name LIKE ?', '%' + content + '%')
     end
   end
+  
+  def user_status
+    if is_active == false
+      "退会"
+    else
+      "有効"
+    end
+  end
+  
+  #退会後、同じアカウントでログイン不可
+  def active_for_authentication?
+    super && (is_active == true)
+  end
+  
+  
 end

@@ -56,11 +56,11 @@
               </tr>
             </tbody>
             </table>
-            
+
             <h4>7日間分の投稿数</h4>
               <table class='table table-bordered'>
                 <thead>
-                  <tr> 
+                  <tr>
                     <th>６日前</th>
                     <th>５日前</th>
                     <th>４日前</th>
@@ -81,7 +81,7 @@
                   <td><%= @novels.created_today.count %></td>
                 </tr>
               </tbody>
-              
+
               <canvas id="myLineChart"></canvas>
                 <script>
                   $(document).on('turbolinks:load', function() {
@@ -95,14 +95,14 @@
                             label: '投稿した本の数',
                             data: [
                               <%= @novels.created_6day_ago.count %>,
-                              <%= @novels.created_5day_ago.count %>, 
-                              <%= @novels.created_4day_ago.count %>, 
-                              <%= @novels.created_3day_ago.count %>, 
-                              <%= @novels.created_2day_ago.count %>, 
-                              <%= @novels.created_yesterday.count %>, 
+                              <%= @novels.created_5day_ago.count %>,
+                              <%= @novels.created_4day_ago.count %>,
+                              <%= @novels.created_3day_ago.count %>,
+                              <%= @novels.created_2day_ago.count %>,
+                              <%= @novels.created_yesterday.count %>,
                               <%= @novels.created_today.count %>
                             ],
-                            borderColor: "rgba(0,0,255,1)",
+                            borderColor: "rgba(255,241,0,1)",
                             backgroundColor: "rgba(0,0,0,0)",
                             tension: 0.4
                           }
@@ -115,13 +115,12 @@
                         },
                         responsive: true,
                         scales: {
-                          y:{
-                            suggestedMin: 0,
-                            suggestedMax: 10
-                          },
-                          x:{
-                            stacked: true
-                          },
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+                                    stepSize: 1
+                                }
+                            }]
                         },
                       }
                     });

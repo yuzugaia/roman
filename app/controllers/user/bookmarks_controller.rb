@@ -1,5 +1,6 @@
 class User::BookmarksController < ApplicationController
-  
+  before_action :authenticate_user!
+
   def create
     @novel = Novel.find(params[:novel_id])
     bookmark = @novel.bookmarks.new(user_id: current_user.id)
@@ -11,5 +12,5 @@ class User::BookmarksController < ApplicationController
     bookmark = current_user.bookmarks.find_by(novel_id: @novel.id)
     bookmark.destroy
   end
-  
+
 end

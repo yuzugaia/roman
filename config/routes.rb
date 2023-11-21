@@ -20,18 +20,19 @@ Rails.application.routes.draw do
 
     get 'search', to: 'searches#search', as: 'search'
     
-    resources :genres,only: [:index,:edit, :update]
+    resources :genres,only: [:index,:edit,:update]
 
-    resources :novels, only: [:index,:show,:edit,:create,:destroy,:update, :new] do
-      resources :novel_comments, only: [:create, :destroy]
-      resource :bookmarks, only: [:create, :destroy]
+    resources :novels, only: [:index,:show,:edit,:create,:destroy,:update,:new] do
+      resources :novel_comments, only: [:create,:destroy]
+      resource :bookmarks, only: [:create,:destroy]
     end
 
-    resources :users, only: [:index,:show,:edit,:update] do
+    resources :users, only: [:index,:show,:edit,:update,:destroy] do
       resource :relationships, only: [:create, :destroy]
 
       member do
         get :bookmarks
+        get :check
       end
 
     get 'followings' => 'relationships#followings', as: 'followings'
@@ -51,14 +52,11 @@ Rails.application.routes.draw do
 
     root to: 'homes#top'
 
-    resources :users,only: [:index, :show, :edit ,:update]
-    resources :genres,only: [:index, :edit, :create,:update, :destroy]
-
-    resources :novels,only: [:new, :index, :show, :destroy] do
-      resources :novel_comments, only: [:destroy]
+    resources :users, only: [:index, :show, :edit, :update]
+    
+    resources :novels, only: [:index,:show,:edit] do
+      resources :novel_comments, only: [:index, :destroy]
     end
-
-
 
   end
 

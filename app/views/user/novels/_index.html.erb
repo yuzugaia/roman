@@ -15,7 +15,7 @@
           <% end %>
         </td>
         <td><%= link_to novel.title,novel, class: "novel_#{novel.id}" %></td>
-        <td id="favorite_btn_<%= novel.id %>">
+        <td id="bookmark_btn_<%= novel.id %>">
           <%= render "user/bookmarks/btn", novel: novel %>
         </td>
         <td>コメント数: <%= novel.novel_comments.count %></td>

@@ -1,5 +1,6 @@
 class User::NovelCommentsController < ApplicationController
-  
+  before_action :authenticate_user!
+
   def create
     novel = Novel.find(params[:novel_id])
     @comment = current_user.novel_comments.new(novel_comment_params)
@@ -13,10 +14,10 @@ class User::NovelCommentsController < ApplicationController
   end
 
   private
-  
+
   def novel_comment_params
     params.require(:novel_comment).permit(:comment)
   end
-  
-  
+
+
 end

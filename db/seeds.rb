@@ -12,7 +12,7 @@ Admin.create!(
   password: '123kanri',
 )
 
-##ジャンル
+#ジャンル
 genres = [
   'ファンタジー',
   '恋愛',
