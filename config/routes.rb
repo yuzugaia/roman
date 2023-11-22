@@ -54,9 +54,9 @@ Rails.application.routes.draw do
 
     resources :users, only: [:index, :show, :edit, :update]
     
-    resources :novels, only: [:index,:show,:edit] do
-      resources :novel_comments, only: [:index, :destroy]
-    end
+    #resources :novels, only: [:index,:show,:edit] do
+    resources :novel_comments, only: [:index, :destroy]
+    #end
 
   end
 

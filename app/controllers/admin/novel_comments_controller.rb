@@ -1,15 +1,14 @@
 class Admin::NovelCommentsController < ApplicationController
 
-  def destroy
-    @comment = NovelComment.find_by(id: params[:id])
+  def index
+    @comments = NovelComment.all
+    @users = User.all
+  end
 
-    if @comment
-      @comment.destroy
-      redirect_to admin_user_path(@comment.novel.admin)
-    else
-      redirect_to admin_user_path, notice: 'コメントが見つかりませんでした。'
-    end
-    
+  def destroy
+    @comment = NovelComment.find(params[:id])
+    @comment.destroy
+    redirect_to admin_novel_comments_path
   end
   
 end

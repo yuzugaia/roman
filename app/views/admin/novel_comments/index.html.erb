@@ -12,21 +12,15 @@
           <th>ユーザー</th>
           <th>コメントした投稿</th>
         </tr>
-        <% @novel_comments.each do |novel_comment| %>
-        <tr>
-          <td><%= novel_comment.created_at.strftime('%Y/%m/%d %H:%M') %></td>
-          <td><%= novel_comment.comment %></td>
-          <td>
-            <%= link_to '削除', admin_novel_comment_path(novel_comment), method: :delete, class: "btn btn-sm btn-danger", "data-confirm" => "本当に消しますか？" %>
-          </td>
-          <td>
-            <%= image_tag @users.find(novel_comment.user_id).get_profile_image, size: '50x50' %>
-            <%= link_to admin_user_path(@users.find(novel_comment.user_id)) do %>
-            <%= @users.find(novel_comment.user_id).name %>
-            <% end %>
-          </td>
-          <td><%= novel_comment.novel.title %></td>
-        </tr>
+        <% @comments.each do |comment| %>
+          <tr>
+            <td><%= comment.user.name %></td>
+            <td><%= comment.comment %></td>
+            <td>
+              <%= link_to '削除', admin_novel_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+            </td>
+            <td><%= comment.novel.title %></td>
+          </tr>
         <% end %>
       </table>
 
