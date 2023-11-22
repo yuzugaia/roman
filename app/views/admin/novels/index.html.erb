@@ -13,7 +13,7 @@
       <tr>
         <td>
         </td>
-        <td><%= novel.title %></td>
+        <td><%= link_to novel.title, admin_novel_path(novel) %></td>
         <td><%= novel.body %></td>
         <td></td>
       </tr>
