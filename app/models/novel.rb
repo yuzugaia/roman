@@ -7,7 +7,7 @@ class Novel < ApplicationRecord
   has_many :read_counts, dependent: :destroy
 
   validates :title,presence:true
-  validates :body,presence:true,length:{maximum:200}
+  validates :body,presence:true,length:{maximum:5000}
   
   scope :created_today, -> { where(created_at: Time.zone.now.all_day) } 
   scope :created_yesterday, -> { where(created_at: 1.day.ago.all_day) } 
