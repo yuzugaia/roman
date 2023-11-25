@@ -14,21 +14,22 @@
         <tr>
           <div class="form-group">
             <%= f.label :タイトル %>
-            <%= f.text_field :title, class: 'form-control book_title' %>
+            <%= f.text_field :title, class: 'form-control book_title', required: true %>
           </div>
         </tr>
         
         <tr>
           <div class="form-group">
             <%= f.label :本文 %>
-            <%= f.text_area :body, class: 'form-control book_body', rows: 20 %>
+            <%= f.text_area :body, class: 'form-control book_body', rows: 20, required: true %>
           </div>
         </tr>
         
         <tr>
           <div class="form-group">
             <strong><%= f.label :ジャンル %></strong><br/>
-            <%= f.collection_select :genre_id, Genre.all, :id, :name, :prompt => "--選択してください--" %>
+            <!--必須フィールドの指定-->
+            <%= f.collection_select :genre_id, Genre.all, :id, :name, {prompt: "--選択してください--"}, {required: true} %>
           </div>
         </tr>
         
