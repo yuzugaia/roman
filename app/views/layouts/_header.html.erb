@@ -2,17 +2,33 @@
   <div class="container">
     <%= link_to image_tag("logo1.png", alt: "ろまんの画像", width: "150px", height: "40px"), root_path, class: "navbar-brand mr-auto" %>
       <ul class="navbar-nav ml-auto">
-        <% if request.fullpath.include?("/admin") && admin_signed_in? %>
-          <%= link_to "ユーザー", admin_users_path, class: "btn btn-danger font-weight-bold mx-3" %>
-          <%= link_to "コメント一覧", admin_novel_comments_path, class: "btn btn-danger font-weight-bold mx-3" %>
-          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-danger font-weight-bold mx-3" %>
+        <% if request.fullpath.include?("/admin") && admin_signed_in? %> 
+        
+          <%= link_to "ユーザー", admin_users_path, class: "nav-link text-success" %>
+          <%= link_to "コメント一覧", admin_novel_comments_path, class: "nav-link text-success" %>
+          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link text-success" %>
+          
         <% elsif user_signed_in? %>
-          <%= link_to "ホーム",user_path(current_user.id),class: "btn btn-danger font-weight-bold mx-3" %>
-          <%= link_to "使い方", about_path,class: "btn btn-danger font-weight-bold mx-3" %>
-          <%= link_to "ユーザー", users_path,class: "btn btn-danger font-weight-bold mx-3" %>
-          <%= link_to "小説一覧", novels_path,class: "btn btn-danger font-weight-bold mx-3" %>
-          <%= link_to "投稿する", new_novel_path,class: "btn btn-danger font-weight-bold mx-3" %>
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete,class: "btn btn-danger font-weight-bold mx-3" %>
+        
+          <%= link_to user_path(current_user.id), class: "nav-link text-success" do %>
+            <i class="fas fa-home"></i> ホーム
+          <% end %>
+          
+          <%= link_to users_path,class: "nav-link text-success" do %>
+            <i class="fas fa-users"></i> ユーザー
+          <% end %>
+          
+          <%= link_to novels_path,class: "nav-link text-success" do %>
+            <i class="fa-solid fa-book-open"></i> 小説一覧
+          <% end %>
+          
+          <%= link_to new_novel_path,class: "nav-link text-success" do %>
+            <i class="fa-solid fa-pen-nib"></i> 投稿する
+          <% end %>
+          
+          <%= link_to destroy_user_session_path, method: :delete, class: "nav-link text-success" do %>
+            <i class="fas fa-sign-out-alt"></i> ログアウト
+          <% end %>
         <% else %>
           <%= link_to about_path,class: "nav-link text-success" do %>
             <i class="fa-solid fa-circle-info"></i> 初めての方
