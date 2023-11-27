@@ -1,9 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-      
       <h4><%= @user.name %>さんの会員情報編集</h4>
-            <%= form_with model: @user, url: admin_user_path(@user.id), method: :patch do |f| %>
+      <%= form_with model: @user, url: admin_user_path(@user.id), method: :patch do |f| %>
         <%= render "user/shared/error_messages", resource: @user %>
         <table>
           <tr>
@@ -24,15 +23,19 @@
               <%= f.radio_button :is_active, :true %>
               <%= f.label :有効 %>
               <%= f.radio_button :is_active, :false %>
-              <%= f.label :退会 %>
+              <%= f.label :無効 %>
             </td>
           </tr>
           <tr>
             <td></td>
             <td><%= f.submit "変更を保存", class: "btn btn-success" %></td>
+            <td>
+              <%= button_to "ユーザーを削除", admin_user_path(@user), method: :delete, data: { confirm: "本当に削除してもよろしいですか？" }, class: "btn btn-danger" %>
+            </td>
           </tr>
         </table>
       <% end %>
+
       
     </div>
   </div>

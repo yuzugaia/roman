@@ -52,7 +52,7 @@ Rails.application.routes.draw do
 
     root to: 'homes#top'
 
-    resources :users, only: [:index, :show, :edit, :update]
+    resources :users, only: [:index, :show, :edit, :update, :destroy]
     
     #resources :novels, only: [:index,:show,:edit] do
     resources :novel_comments, only: [:index, :destroy]
