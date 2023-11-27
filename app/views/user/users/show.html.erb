@@ -1,6 +1,6 @@
 <div class='container px-5 px-sm-0'>
   <div class='row'>
-    
+  
     <div class='col-md-3'>
       <h2>プロフィール</h2>
       <%= render 'info', user: @user %>
@@ -23,18 +23,18 @@
                 <th>前日比</th>
               </tr>
             </thead>
-          <tbody>
-            <tr>
-              <td><%= @today_novel.count %></td>
-              <td><%= @yesterday_novel.count %></td>
-              <% if @yesterday_novel.count == 0 %>
-              <td>前日の投稿はなし</td>
-              <% else %>
-              <td><% @the_day_before =   @today_novel.count / @yesterday_novel.count  %>
-              <%= (@the_day_before * 100).round %>%</td>
-              <% end %>
-            </tr>
-          </tbody>
+            <tbody>
+              <tr>
+                <td><%= @today_novel.count %></td>
+                <td><%= @yesterday_novel.count %></td>
+                <% if @yesterday_novel.count == 0 %>
+                <td>前日の投稿はなし</td>
+                <% else %>
+                <td><% @the_day_before =   @today_novel.count / @yesterday_novel.count  %>
+                <%= (@the_day_before * 100).round %>%</td>
+                <% end %>
+              </tr>
+            </tbody>
           </table>
 
           <table class="table table-bordered">
@@ -57,90 +57,8 @@
                 <% end %>
               </tr>
             </tbody>
-            </table>
-
-            <h4>7日間分の投稿数</h4>
-              <table class='table table-bordered'>
-                <thead>
-                  <tr>
-                    <th>６日前</th>
-                    <th>５日前</th>
-                    <th>４日前</th>
-                    <th>３日前</th>
-                    <th>２日前</th>
-                    <th>１日前</th>
-                    <th>今日</th>
-                  </tr>
-                </thead>
-              <tbody>
-                <tr>
-                  <td><%= @novels.created_6day_ago.count %></td>
-                  <td><%= @novels.created_5day_ago.count %></td>
-                  <td><%= @novels.created_4day_ago.count %></td>
-                  <td><%= @novels.created_3day_ago.count %></td>
-                  <td><%= @novels.created_2day_ago.count %></td>
-                  <td><%= @novels.created_yesterday.count %></td>
-                  <td><%= @novels.created_today.count %></td>
-                </tr>
-              </tbody>
-
-              <canvas id="myLineChart"></canvas>
-                <script>
-                  $(document).on('turbolinks:load', function() {
-                    var ctx = document.getElementById("myLineChart");
-                    var myLineChart = new Chart(ctx, {
-                      type: 'line',
-                      data: {
-                        labels: ['6日前', '5日前', '4日前', '3日前', '2日前', '1日前', '今日'],
-                        datasets: [
-                          {
-                            label: '投稿した本の数',
-                            data: [
-                              <%= @novels.created_6day_ago.count %>,
-                              <%= @novels.created_5day_ago.count %>,
-                              <%= @novels.created_4day_ago.count %>,
-                              <%= @novels.created_3day_ago.count %>,
-                              <%= @novels.created_2day_ago.count %>,
-                              <%= @novels.created_yesterday.count %>,
-                              <%= @novels.created_today.count %>
-                            ],
-                            borderColor: "rgba(255,241,0,1)",
-                            backgroundColor: "rgba(0,0,0,0)",
-                            tension: 0.4
-                          }
-                        ],
-                      },
-                      options: {
-                        title: {
-                          display: true,
-                          text: '7日間の投稿数の比較'
-                        },
-                        responsive: true,
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true,
-                                    stepSize: 1
-                                }
-                            }]
-                        },
-                      }
-                    });
-                  });
-                </script>
-        </table>
-      </div>
-      <%= form_with url:user_search_path(@user), method: :get, local: false do |f| %>
-        <%= f.date_field :created_at %>
-        <%= f.submit '検索', class: "btn btn-primary" %>
-      <% end %>
-
-      <div id="search_result">
-        <% if @search_novel.present? %>
-          <%= render 'search', search_novel: @search_novel %>
-        <% end %>
-      </div>
-      
+          </table>
+          </div>
       </div>
     </div>
   </div>
