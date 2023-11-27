@@ -4,6 +4,8 @@ class Admin::UsersController < ApplicationController
   
   def index
     @users = User.all
+                 .order(created_at: :desc) #新規投稿順
+                 .page(params[:page]).per(8) #ページネーション
   end
 
   def show

@@ -34,10 +34,15 @@
         </tr>
         
         <tr>
-        <div class="form-action">
-          <th>　　　</th>
-          <td><%= f.submit "投稿", class: "btn btn-success" %></td>
-        </div>
+          <td colspan="2">
+            <div class="form-action">
+              <div class="row">
+                <div class="col-6">
+                  <%= f.submit "投稿", class: "btn btn-success" %>
+                </div>
+              </div>
+            </div>
+          </td>
         </tr>
         
       <% end %>

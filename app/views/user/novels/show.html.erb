@@ -7,12 +7,12 @@
           <td>
             作：
             <%= link_to(@novel.user) do %>
-              <%= @novel.user.name %>
+              <%= @novel.user.name %><br/>
             <% end %>
+            ジャンル：<%= @genre.name %>
           </td>
-          <td><%= link_to @novel.title, @novel %></td>
+          <td>タイトル：<%= link_to @novel.title, @novel %></td>
         </tr>
-        
         <tr>
           <td colspan="2">
             <%= simple_format(@novel.body) %>
@@ -38,8 +38,7 @@
        <div id="comment_index">
          <%= render "user/novel_comments/index", novel: @novel %>
        </div>
-
-
+       
       <%= render "user/novel_comments/form", novel: @novel, novel_comment: @novel_comment %>
 
     </div>

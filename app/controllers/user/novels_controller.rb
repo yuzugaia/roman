@@ -10,6 +10,7 @@ class User::NovelsController < ApplicationController
 
   def show
     @novel = Novel.find(params[:id])
+    @genre = @novel.genre
     unless ReadCount.where(created_at: Time.zone.now.all_day).find_by(user_id: current_user.id, novel_id: @novel.id)
       current_user.read_counts.create(novel_id: @novel.id)
     end
@@ -18,6 +19,8 @@ class User::NovelsController < ApplicationController
 
   def index
     @novels = Novel.all
+                   .order(created_at: :desc) #新規投稿順で表示
+                   .page(params[:page]).per(10) #ページネーション
     @novel = Novel.new
   end
 

@@ -9,10 +9,10 @@
             <%= user.name %>
           <% end %>
       </td>
-      <td><%= novel_comment.comment %></td>
+      <td><span style="margin: 0 10px;"><%= novel_comment.comment %></span></td>
       <td>
         <% if novel_comment.user_id == current_user.id %>
-          <%= link_to "Destroy", novel_novel_comment_path(novel, novel_comment), method: :delete, class: "btn btn-sm btn-danger float-end", remote: true %>
+          <%= link_to "削除", novel_novel_comment_path(novel, novel_comment), method: :delete, class: "btn btn-sm btn-danger float-end", remote: true %>
         <% end %>
       </td>
     </tr>
