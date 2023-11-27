@@ -1,43 +1,40 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
-    <%= link_to image_tag("logo1.png", alt: "ろまんの画像", width: "150px", height: "40px"), root_path, class: "navbar-brand mr-auto" %>
+    <% if admin_signed_in? %>
+      <%= link_to image_tag("logo1.png", alt: "ろまんの画像", width: "150px", height: "40px"), admin_root_path, class: "navbar-brand mr-auto" %>
+    <% elsif current_user %>
+      <%= link_to image_tag("logo1.png", alt: "ろまんの画像", width: "150px", height: "40px"), user_path(current_user.id), class: "navbar-brand mr-auto" %>
+    <% else %>
+      <%= link_to image_tag("logo1.png", alt: "ろまんの画像", width: "150px", height: "40px"), root_path, class: "navbar-brand mr-auto" %>
+    <% end %>
       <ul class="navbar-nav ml-auto">
-        <% if request.fullpath.include?("/admin") && admin_signed_in? %> 
-        
+        <% if request.fullpath.include?("/admin") && admin_signed_in? %> <!--管理者-->
           <%= link_to "ユーザー", admin_users_path, class: "nav-link text-success" %>
           <%= link_to "コメント一覧", admin_novel_comments_path, class: "nav-link text-success" %>
           <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link text-success" %>
-          
-        <% elsif user_signed_in? %>
-        
+        <% elsif user_signed_in? %> <!--ユーザー-->
           <%= link_to user_path(current_user.id), class: "nav-link text-success" do %>
             <i class="fas fa-home"></i> ホーム
           <% end %>
-          
           <%= link_to users_path,class: "nav-link text-success" do %>
             <i class="fas fa-users"></i> ユーザー
           <% end %>
-          
           <%= link_to novels_path,class: "nav-link text-success" do %>
             <i class="fa-solid fa-book-open"></i> 小説一覧
           <% end %>
-          
           <%= link_to new_novel_path,class: "nav-link text-success" do %>
             <i class="fa-solid fa-pen-nib"></i> 投稿する
           <% end %>
-          
           <%= link_to destroy_user_session_path, method: :delete, class: "nav-link text-success" do %>
             <i class="fas fa-sign-out-alt"></i> ログアウト
           <% end %>
-        <% else %>
+        <% else %> <!--ログインしていない-->
           <%= link_to about_path,class: "nav-link text-success" do %>
             <i class="fa-solid fa-circle-info"></i> 初めての方
           <% end %>
-          
           <%= link_to new_user_session_path,class: "nav-link text-success" do %>
             <i class="fas fa-sign-in-alt"></i> ログイン
           <% end %>
-          
           <%= link_to new_user_registration_path,class: "nav-link text-success" do %>
             <i class="fas fa-user-plus"></i> 新規登録
           <% end %>
