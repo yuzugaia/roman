@@ -6,18 +6,18 @@
       
       <table class='table table-hover table-inverse'>
         <tr>
-          <th></th>
+          <th>ユーザー</th>
           <th>コメント</th>
           <th></th>
-          <th>ユーザー</th>
           <th>コメントした投稿</th>
+          <th></th>
         </tr>
         <% @comments.each do |comment| %>
           <tr>
             <td><%= comment.user.name %></td>
             <td><%= comment.comment %></td>
             <td>
-              <%= link_to '削除', admin_novel_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+              <%= link_to '削除', admin_novel_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class:"btn btn-danger" %>
             </td>
             <td><%= comment.novel.title %></td>
           </tr>

@@ -1,12 +1,17 @@
-<table class="table">
-  <h1>ブックマーク</h1>
-  <tbody>
-    <% @bookmark_novels.each do |novel| %>
-    <tr>
-      <td>
-        <%= novel.title %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class='container px-5 px-sm-0'>
+  <div class='row'>
+    <div class='col-md-8 offset-md-1'>
+      <h2>ブックマークした作品</h2>
+        <table class='table table-hover table-inverse'>
+          <tbody>
+            <% @bookmark_novels.each do |novel| %>
+              <td>
+                <%= link_to novel.title, novel_path(novel) %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>

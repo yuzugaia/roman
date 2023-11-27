@@ -9,7 +9,7 @@
     <% end %>
       <ul class="navbar-nav ml-auto">
         <% if request.fullpath.include?("/admin") && admin_signed_in? %> <!--管理者-->
-          <%= link_to "ユーザー", admin_users_path, class: "nav-link text-success" %>
+          <%= link_to "ユーザー一覧", admin_users_path, class: "nav-link text-success" %>
           <%= link_to "コメント一覧", admin_novel_comments_path, class: "nav-link text-success" %>
           <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link text-success" %>
         <% elsif user_signed_in? %> <!--ユーザー-->
