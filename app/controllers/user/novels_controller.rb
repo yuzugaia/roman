@@ -28,7 +28,7 @@ class User::NovelsController < ApplicationController
     @novel = Novel.new(novel_params)
     @novel.user_id = current_user.id
     if @novel.save
-      redirect_to novel_path(@novel), notice: "You have created novel successfully."
+      redirect_to novel_path(@novel), notice: "投稿しました。"
     else
       @novels = Novel.all
       render 'index'
@@ -42,7 +42,7 @@ class User::NovelsController < ApplicationController
 
   def update
     if @novel.update(novel_params)
-      redirect_to novel_path(@novel), notice: "You have updated novel successfully."
+      redirect_to novel_path(@novel), notice: "更新しました。"
     else
       render "edit"
     end
