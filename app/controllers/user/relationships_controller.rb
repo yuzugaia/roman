@@ -1,7 +1,8 @@
 class User::RelationshipsController < ApplicationController
   
   before_action :authenticate_user!
-
+  
+  #フォロー・フォロワー機能
   def create
     user = User.find(params[:user_id])
     current_user.follow(user)

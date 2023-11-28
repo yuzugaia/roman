@@ -1,5 +1,6 @@
 class User::NovelCommentsController < ApplicationController
-
+  
+  #コメント機能
   def create
     novel = Novel.find(params[:novel_id])
     @comment = current_user.novel_comments.new(novel_comment_params)

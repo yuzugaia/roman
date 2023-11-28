@@ -41,20 +41,14 @@ class User::UsersController < ApplicationController
     @user = User.find(params[:user_id])
     @novels = @user.novels
     @novel = Novel.new
-    if params[:created_at] == ""
-      @search_novel = "日付を選択してください"
-    else
-      create_at = params[:created_at]
-      @search_novel = @novels.where(['created_at LIKE ? ', "#{create_at}%"]).count
-    end
   end
   
   #ユーザーの物理削除
   def destroy
-      @user = User.find(params[:id]) 
-      @user.destroy
-      flash[:notice] = 'ユーザーを削除しました。'
-      redirect_to :root
+    @user = User.find(params[:id]) 
+    @user.destroy
+    flash[:notice] = "退会しました。"
+    redirect_to :root
   end
 
   private

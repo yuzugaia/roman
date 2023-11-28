@@ -14,8 +14,7 @@ Rails.application.routes.draw do
   root to: 'user/homes#top'
   get 'user/homes/about', to: 'user/homes#about', as: 'about'
 
-  #ユーザー用
-
+  #ユーザールーティング
   scope module: :user do
 
     get 'search', to: 'searches#search', as: 'search'
@@ -42,22 +41,16 @@ Rails.application.routes.draw do
     end
   end
 
-  #ゲストユーザー用
+  #ゲストユーザールーティング
   devise_scope :user do
     post "users/guest_sign_in", to: "user/sessions#guest_sign_in"
   end
 
-
+  #管理者ルーティング
   namespace :admin do
-
     root to: 'homes#top'
-
     resources :users, only: [:index, :show, :edit, :update, :destroy]
-    
-    #resources :novels, only: [:index,:show,:edit] do
     resources :novel_comments, only: [:index, :destroy]
-    #end
-
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

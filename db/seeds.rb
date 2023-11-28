@@ -12,6 +12,44 @@ Admin.create!(
   password: '123kanri',
 )
 
+#サンプルユーザー
+
+User.create!(
+  name: "麦茶",
+  email: "11@11",
+  password: "password",
+)
+
+User.create!(
+  name: "マテ茶",
+  email: "22@22",
+  password: "password",
+)
+
+User.create!(
+  name: "緑茶",
+  email: "33@33",
+  password: "password",
+)
+
+User.create!(
+  name: "抹茶",
+  email: "44@44",
+  password: "password",
+)
+
+User.create!(
+  name: "ほうじ茶",
+  email: "55@55",
+  password: "password",
+)
+
+User.create!(
+  name: "紅茶",
+  email: "66@66",
+  password: "password",
+)
+
 #ジャンル
 genres = [
   'ファンタジー',
@@ -28,3 +66,6 @@ genres.each do |genre|
     name: genre
   )
 end
+
+#投稿物
+
