@@ -2,16 +2,21 @@
   <tbody>
     <% novels.each do |novel| %>
       <tr>
-        <td><%= link_to(novel.user) do %>
-          <%= image_tag novel.user.get_profile_image, size:'50x50' %>
+        <td>
+          <%= link_to(novel.user) do %>
+            <%= image_tag novel.user.get_profile_image, size:'50x50' %>
           <% end %>
         </td>
-        <td><%= link_to novel.title,novel, class: "novel_#{novel.id}" %></td>
+        <td>
+          作者：<%= novel.user.name %><br/>
+          ジャンル：<%= novel.genre.name %>
+        </td>
+        <td>タイトル:<%= link_to novel.title,novel, class: "novel_#{novel.id}" %></td>
         <td id="bookmark_btn_<%= novel.id %>">
           <%= render "user/bookmarks/btn", novel: novel %>
         </td>
-        <td>コメント数: <%= novel.novel_comments.count %></td>
-        <td>閲覧数: <%= novel.read_counts.count %></td>
+        <td>コメント数: <%= novel.novel_comments.count %></br>
+        閲覧数: <%= novel.read_counts.count %></td>
       </tr>
     <% end %>
   </tbody>
