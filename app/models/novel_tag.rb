@@ -1,2 +1,0 @@
-class NovelTag < ApplicationRecord
-end
