@@ -1,44 +1,50 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-8 px-sm-0 offset-sm-1">
-      <h4>小説改稿</h4>
+      <h4>投稿の編集</h4>
     </div>
   </div>
-
+  
   <div class="mb-4"></div>
   <div class="row">
     <div class="col-sm-10 px-sm-0 mx-auto mb-5">
-      <%= form_with model: @novel, url: novels_path, local: true do |f| %>
+      <%= form_with model: @novel, url: novel_path(@novel), local: true do |f| %>
       <table>
-
+        
         <tr>
           <div class="form-group">
-            <%= f.label :タイトル %>
-            <%= f.text_field :title, class: 'form-control book_title' %>
+            <%= f.label :"タイトル" %>
+            <%= f.text_field :title, class: 'form-control book_title', required: true %>
           </div>
         </tr>
-
+        
         <tr>
           <div class="form-group">
-            <%= f.label :本文 %>
-            <%= f.text_area :body, class: 'form-control book_body', rows: 20 %>
+            <%= f.label :"本文(5000字以内)" %>
+            <%= f.text_area :body, class: 'form-control book_body', rows: 20, required: true %>
           </div>
         </tr>
-
+        
         <tr>
           <div class="form-group">
-            <strong><%= f.label :ジャンル %></strong><br/>
-            <%= f.select :genre_id, options_for_select(@genres.collect { |g| [g.name, g.id] }), include_blank: "--選択してください--" %>
+            <strong><%= f.label :"ジャンル" %></strong><br/>
+            <!--必須フィールドの指定-->
+            <%= f.collection_select :genre_id, Genre.all, :id, :name, {prompt: "--選択してください--"}, {required: true} %>
           </div>
         </tr>
-
+        
         <tr>
-        <div class="form-action">
-          <th>　　　</th>
-          <td><%= f.submit "投稿", class: "btn btn-success" %></td>
-        </div>
+          <td colspan="2">
+            <div class="form-action">
+              <div class="row">
+                <div class="col-6">
+                  <%= f.submit "投稿", class: "btn btn-success" %>
+                </div>
+              </div>
+            </div>
+          </td>
         </tr>
-
+        
       <% end %>
       </table>
     </div>

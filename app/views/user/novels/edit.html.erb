@@ -1,11 +1,10 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-8 px-sm-0 offset-sm-1">
-      <h4>小説改稿</h4>
+    <div class="col-sm-8 offset-sm-2">
         <%= render 'layouts/errors', obj: @novel %>
         <%= render 'editing', novel: @novel %>
-        <%= link_to 'Show', @novel, class: "novel_#{@novel.id}" %> |
-        <%= link_to 'Back', novels_path, class: "back" %>
+        <%= link_to 'Show', @novel, class: "btn btn-info ms-sm-2 novel_#{@novel.id}" %>
+        <%= link_to 'Back', novels_path, class: "btn btn-warning back" %>
     </div>
   </div>
 </div>

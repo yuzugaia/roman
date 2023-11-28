@@ -36,6 +36,8 @@ class User::NovelsController < ApplicationController
   end
 
   def edit
+    @novel = Novel.find(params[:id])
+    @genres = Genre.all # @genresの値を再度セットする
   end
 
   def update

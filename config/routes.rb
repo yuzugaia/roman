@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     
     resources :genres,only: [:index,:edit,:update]
 
-    resources :novels, only: [:index,:show,:edit,:create,:destroy,:update,:new] do
+    resources :novels, only: [:index, :show, :edit, :create, :destroy, :update, :new] do
       resources :novel_comments, only: [:create,:destroy]
       resource :bookmarks, only: [:create,:destroy]
     end
